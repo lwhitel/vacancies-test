@@ -1,6 +1,6 @@
 <?php
 
-namespace Money\View\Helper;
+namespace Vacancy\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
 use Zend\View\Helper\FlashMessenger;

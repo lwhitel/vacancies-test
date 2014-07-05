@@ -20,16 +20,6 @@ class Vacancy
     protected $id;
 
     /**
-     * @var \Vacancy\Entity\Localization
-     *
-     * @ORM\ManyToOne(targetEntity="Vacancy\Entity\Localization")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="local_id", referencedColumnName="id")
-     * })
-     */
-    private $localization;
-
-    /**
      * @var \Vacancy\Entity\Department
      *
      * @ORM\ManyToOne(targetEntity="Vacancy\Entity\Department")
@@ -59,22 +49,6 @@ class Vacancy
     public function setId($id)
     {
         $this->id = (int) $id;
-    }
-
-    /**
-     * @param \Vacancy\Entity\Localization $localization
-     */
-    public function setLocalization($localization)
-    {
-        $this->localization = $localization;
-    }
-
-    /**
-     * @return \Vacancy\Entity\Localization
-     */
-    public function getLocalization()
-    {
-        return $this->localization;
     }
 
     /**

@@ -11,7 +11,7 @@ use Zend\Mail;
  * Class MoneyController
  * @package Vacancy\Controller
  */
-class MoneyController extends AbstractActionController
+class VacancyController extends AbstractActionController
 {
     /**
      * @return ViewModel
