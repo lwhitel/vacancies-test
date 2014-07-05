@@ -9,6 +9,7 @@ return array(
         'MyUser',
         'Application',
         'ZendDeveloperTools',
+        'Vacancy',
         'DoctrineModule',
         'DoctrineORMModule',
         'ZfcTwig'

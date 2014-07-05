@@ -42,13 +42,13 @@ return array(
                 array('controller' => 'Application\Controller\Index', 'roles' => array()),
 
                 array(
-                    'controller' => 'Money\Controller\Money',
+                    'controller' => 'Vacancy\Controller\Vacancy',
                     'action' => array('index', 'view', 'contacts'),
                     'roles' => array('guest', 'user'),
                 ),
 
                 array(
-                    'controller' => 'Money\Controller\Money',
+                    'controller' => 'Vacancy\Controller\Vacancy',
                     'action' => array('add', 'edit', 'delete'),
                     'roles' => array('administrator'),
                 ),

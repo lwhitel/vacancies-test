@@ -1,0 +1,99 @@
+{{ docType() }}
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="ru">
+
+<head>
+    <meta name="robots" content="all" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    {% block meta %}
+        <meta name="description" content="Вакансии" />
+        <meta name="keywords" content="Вакансии" />
+    {% endblock meta %}
+    <title>{% block title %}Вакансии{% endblock title %}</title>
+
+    {% block script %}
+        <script type='text/javascript' src='/js/highslide-4.1.9/highslide-full.packed.js'></script>
+        <script type='text/javascript'>
+            hs.graphicsDir = '/js/highslide-4.1.9/graphics/';
+            hs.outlineType = null;
+            hs.showCredits = false;
+            hs.lang={cssDirection:'ltr',loadingText:'Загрузка...',loadingTitle:'Кликните чтобы отменить',focusTitle:'Нажмите чтобы перенести вперёд',fullExpandTitle:'Увеличить',fullExpandText:'Полноэкранный',previousText:'Предыдущий',previousTitle:'Назад (стрелка влево)',nextText:'Далее',nextTitle:'Далее (стрелка вправо)',moveTitle:'Передвинуть',moveText:'Передвинуть',closeText:'Закрыть',closeTitle:'Закрыть (Esc)',resizeTitle:'Восстановить размер',playText:'Слайд-шоу',playTitle:'Слайд-шоу (пробел)',pauseText:'Пауза',pauseTitle:'Приостановить слайд-шоу (пробел)',number:'Изображение %1/%2',restoreTitle:'Нажмите чтобы посмотреть картинку, используйте мышь для перетаскивания. Используйте клавиши вперёд и назад'};
+        </script>
+        <link rel='stylesheet' type='text/css' href='/css/highslide/highslide.css'/>
+        <link rel='stylesheet' type='text/css' href='/css/highslide/style1.css'/>
+        <!--[if IE 6]>
+        <link rel='stylesheet' type='text/css' href='/css/highslide-4.1.9/highslide-ie6.css'/>
+        <![endif]-->
+
+
+
+        <link rel='stylesheet' type='text/css' href='/css/calendar.css' />
+        <script type='text/javascript' src='/js/lang/ru.js'></script>
+        <script type='text/javascript' src='/js/cookie.js'></script>
+        <script type='text/javascript' src='/js/widgets.js?v=7'></script>
+        <script type='text/javascript' src='/js/calendar.packed.js'></script>
+
+        <script type='text/javascript' src='/js/flowplayer-3.2.9.min.js'></script>
+
+
+        <script type="text/javascript"  src="/js/no_cookies.js"></script>
+        <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="/js/scripts.js"></script>
+
+        <link href="/css/styles.css" rel="stylesheet" type="text/css" />
+        <link href="/css/styles_articles_tpl.css" rel="stylesheet"  type="text/css" />
+
+        <script type="text/javascript">
+            hs.align = 'center';
+            hs.captionId = 'the-caption';
+            hs.outlineType = 'rounded-white';
+            window.onload = function() {
+                hs.preloadImages(5);
+            }
+        </script>
+
+    {% endblock script %}
+</head>
+<body>
+<div id="wrap">
+    {% block header %}
+
+    {% endblock header %}
+
+
+    <ul id="menu">
+        {% block menu %}
+            <li><a href="/">Главная</a></li>
+            <li><a href="/vacancies">Вакансии</a></li>
+        {% endblock menu %}
+    </ul>
+
+    <div id="path">
+        <div class="site-path">
+            {% block path %}
+            {% endblock path %}
+        </div>
+    </div>
+
+
+    <div id="content" {% block content_style %}style="width:100%;"{% endblock content_style %}>
+        <div id="inner">
+            {% block content %}
+                <h1>Главная</h1>
+            {% endblock content %}
+
+        </div>
+    </div>
+
+
+    {% block side %}
+    {% endblock side %}
+    <div class="clearfloat"></div>
+</div>
+{% block footer %}
+    <div id="footer">
+        &copy; 2014 <br />
+    </div>
+{% endblock footer %}
+</body>
+
+</html>
