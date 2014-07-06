@@ -1,0 +1,16 @@
+{% extends 'layout/layout.twig' %}
+
+{% block content %}
+    <table style="width:100%">
+        <tr>
+            <td>Название</td>
+            <td>Отдел</td>
+        </tr>
+        {% for vacancy in vacancies %}
+            <tr>
+                <td>{{ vacancy.name }}</td>
+                <td>{{ vacancy.vacancy.department.name }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
