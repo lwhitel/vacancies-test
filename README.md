@@ -1,77 +1,83 @@
-ZendSkeletonApplication
+TestApplication "Vacancy"
 =======================
 
-Introduction
-------------
-This is a simple, skeleton application using the ZF2 MVC layer and module
-systems. This application is meant to be used as a starting place for those
-looking to get their feet wet with ZF2.
 
 Installation
 ------------
 
-Using Composer (recommended)
+Using Composer
 ----------------------------
-The recommended way to get a working copy of this project is to clone the repository
-and use `composer` to install dependencies using the `create-project` command:
+Use commands:
 
-    curl -s https://getcomposer.org/installer | php --
-    php composer.phar create-project -sdev --repository-url="https://packages.zendframework.com" zendframework/skeleton-application path/to/install
+    git clone https://github.com/lwhitel/vacancies-test.git
 
-Alternately, clone the repository and manually invoke `composer` using the shipped
-`composer.phar`:
+    composer update
 
-    cd my/project/dir
-    git clone git://github.com/zendframework/ZendSkeletonApplication.git
-    cd ZendSkeletonApplication
-    php composer.phar self-update
-    php composer.phar install
+Create database in mysql and add settings in file `config\autoload\local.php`
+example code:
+    $dbParams = array(
+        'database'  => 'vacancy',
+        'username'  => 'vacancy123',
+        'password'  => 'Vac123ancy!',
+        'hostname'  => 'localhost',
+        // buffer_results - only for mysqli buffered queries, skip for others
+        'options' => array('buffer_results' => true)
+    );
 
-(The `self-update` directive is to ensure you have an up-to-date `composer.phar`
-available.)
+    return array(
+        'service_manager' => array(
+            'factories' => array(
+                'Zend\Db\Adapter\Adapter' => function ($sm) use ($dbParams) {
+                    $adapter = new BjyProfiler\Db\Adapter\ProfilingAdapter(array(
+                        'driver'    => 'pdo',
+                        'dsn'       => 'mysql:dbname='.$dbParams['database'].';host='.$dbParams['hostname'],
+                        'database'  => $dbParams['database'],
+                        'username'  => $dbParams['username'],
+                        'password'  => $dbParams['password'],
+                        'hostname'  => $dbParams['hostname'],
+                    ));
 
-Another alternative for downloading the project is to grab it via `curl`, and
-then pass it to `tar`:
+                    if (php_sapi_name() == 'cli') {
+                        $logger = new Zend\Log\Logger();
+                        // write queries profiling info to stdout in CLI mode
+                        $writer = new Zend\Log\Writer\Stream('php://output');
+                        $logger->addWriter($writer, Zend\Log\Logger::DEBUG);
+                        $adapter->setProfiler(new BjyProfiler\Db\Profiler\LoggingProfiler($logger));
+                    } else {
+                        $adapter->setProfiler(new BjyProfiler\Db\Profiler\Profiler());
+                    }
+                    if (isset($dbParams['options']) && is_array($dbParams['options'])) {
+                        $options = $dbParams['options'];
+                    } else {
+                        $options = array();
+                    }
+                    $adapter->injectProfilingStatementPrototype($options);
+                    return $adapter;
+                },
+            ),
+        ),
+        'doctrine' => array(
+            'connection' => array(
+                // Configuration for service `doctrine.connection.orm_default` service
+                'orm_default' => array(
+                    'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
 
-    cd my/project/dir
-    curl -#L https://github.com/zendframework/ZendSkeletonApplication/tarball/master | tar xz --strip-components=1
+                    // connection parameters, see
+                    // http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html
+                    'params' => array(
+                        'host'     => $dbParams['hostname'],
+                        'port'     => '3306',
+                        'user'     => $dbParams['username'],
+                        'password' => $dbParams['password'],
+                        'dbname'   => $dbParams['database'],
+                    )
+                ),
+            ),
+        ),
+    );
 
-You would then invoke `composer` to install dependencies per the previous
-example.
+next command:
+    vendor\bin\doctrine-module orm:schema-tool:update --force
 
-Using Git submodules
---------------------
-Alternatively, you can install using native git submodules:
-
-    git clone git://github.com/zendframework/ZendSkeletonApplication.git --recursive
-
-Web Server Setup
-----------------
-
-### PHP CLI Server
-
-The simplest way to get started if you are using PHP 5.4 or above is to start the internal PHP cli-server in the root directory:
-
-    php -S 0.0.0.0:8080 -t public/ public/index.php
-
-This will start the cli-server on port 8080, and bind it to all network
-interfaces.
-
-**Note: ** The built-in CLI server is *for development only*.
-
-### Apache Setup
-
-To setup apache, setup a virtual host to point to the public/ directory of the
-project and you should be ready to go! It should look something like below:
-
-    <VirtualHost *:80>
-        ServerName zf2-tutorial.localhost
-        DocumentRoot /path/to/zf2-tutorial/public
-        SetEnv APPLICATION_ENV "development"
-        <Directory /path/to/zf2-tutorial/public>
-            DirectoryIndex index.php
-            AllowOverride All
-            Order allow,deny
-            Allow from all
-        </Directory>
-    </VirtualHost>
+Insert row in table "role":
+    INSERT INTO `role` (`id`, `parent_id`, `roleId`) VALUES (1, NULL, 'guest');
