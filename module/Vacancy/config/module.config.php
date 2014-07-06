@@ -41,14 +41,14 @@ return array(
 
     'doctrine' => array(
         'driver' => array(
-            'money_driver' => array(
+            'vacancy_driver' => array(
                 'class' =>'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'paths' => array(__DIR__ . '/../src/Vacancy/Entity'),
                 'cache' => 'array',
             ),
             'orm_default' => array(
                 'drivers' => array(
-                    'Vacancy\Entity' => 'money_driver',
+                    'Vacancy\Entity' => 'vacancy_driver',
                 )
             )
         )

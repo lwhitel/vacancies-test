@@ -5,8 +5,6 @@ TestApplication "Vacancy"
 Installation
 ------------
 
-Using Composer
-----------------------------
 Use commands:
 
     git clone https://github.com/lwhitel/vacancies-test.git
