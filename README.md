@@ -15,6 +15,7 @@ Use commands:
 
 Create database in mysql and add settings in file `config\autoload\local.php`
 example code:
+
     $dbParams = array(
         'database'  => 'vacancy',
         'username'  => 'vacancy123',
@@ -77,7 +78,9 @@ example code:
     );
 
 next command:
+
     vendor\bin\doctrine-module orm:schema-tool:update --force
 
 Insert row in table "role":
+
     INSERT INTO `role` (`id`, `parent_id`, `roleId`) VALUES (1, NULL, 'guest');
