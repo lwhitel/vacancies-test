@@ -1,0 +1,18 @@
+{% extends 'layout/layout.twig' %}
+
+{% block title %}
+    {{ vacancy.name }}
+{% endblock title %}
+
+{% block meta %}
+    <meta name="description" content="{{ vacancy.name }}" />
+    <meta name="keywords" content="{{ vacancy.name }}" />
+{% endblock meta %}
+
+{% block content %}
+    <h1>{{ vacancy.name }}</h1>
+    <div>
+        Отдел: {{ vacancy.vacancy.department.name }}<br>
+        {{ vacancy.description|raw }}
+    </div>
+{% endblock %}

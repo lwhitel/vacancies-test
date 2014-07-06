@@ -1,6 +1,35 @@
 {% extends 'layout/layout.twig' %}
 
 {% block content %}
+    <h1>Вакансии</h1>
+    <div style="width: 100%;">
+        <form >
+            <div style="float: left; width: 60px;">Фильтры:</div>
+            <div style="float: left; width: 220px; margin-left:10px;">
+                отдел
+                <select name="department">
+                    <option value=""> - </option>
+                    {% for dep in filters.departments %}
+                        <option value="{{ dep.id }}"
+                                {% if paramDep == dep.id %}selected="selected"{% endif %}>{{ dep.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div style="float: left; margin-left:10px;">
+                язык
+                <select name="lang">
+                    {% for lang in filters.lang %}
+                        <option value="{{ lang.name }}"
+                                {% if paramLang == lang.name %}selected="selected"{% endif %}>{{ lang.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <input style="margin-left:10px;" type="submit" value="Фильтровать">
+            </div>
+        </form>
+    </div>
+    <br>
     <table style="width:100%">
         <tr>
             <td>Название</td>
@@ -8,9 +37,50 @@
         </tr>
         {% for vacancy in vacancies %}
             <tr>
-                <td>{{ vacancy.name }}</td>
+                <td><a href="{{ url('vacancy', {'action': 'view', 'id': vacancy.vacancy.id}) }}?lang={{ vacancy.language.name }}">{{ vacancy.name }}</a></td>
                 <td>{{ vacancy.vacancy.department.name }}</td>
             </tr>
         {% endfor %}
     </table>
+    {% if totalPages > 0 %}
+        <br>
+        {% if p == 1 %}
+            {#<div class="pages">
+                <span>Страницы: </span>
+                <span>
+                    {{ p }}
+                </span>
+                {% if totalPages >= p+1 %}
+                    <span>
+                        <a href="{{ url('vacancy', {'action': 'index'}) }}?p={{ p+1 }}">{{ p+1 }}</a>
+                    </span>
+                {% endif %}
+            </div>#}
+        {% elseif p == totalPages %}
+            <div class="pages">
+                <span>Страницы: </span>
+                <span>
+                    <a href="{{ url('vacancy', {'action': 'index'}) }}?p={{ p-1 }}">{{ p-1 }}</a>
+                </span>
+                <span>
+                    {{ p }}
+                </span>
+            </div>
+        {% else %}
+            <div class="pages">
+                <span>Страницы: </span>
+                <span>
+                    <a href="{{ url('vacancy', {'action': 'index'}) }}?p={{ p-1 }}">{{ p-1 }}</a>
+                </span>
+                <span>
+                    {{ p }}
+                </span>
+                {% if totalPages >= p+1 %}
+                    <span>
+                        <a href="{{ url('vacancy', {'action': 'index'}) }}?p={{ p+1 }}">{{ p+1 }}</a>
+                    </span>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endif %}
 {% endblock %}
