@@ -77,8 +77,16 @@ example code:
 
 next command:
 
+    vendor\bin\doctrine-module orm:schema-tool:create
+
+or
+
     vendor\bin\doctrine-module orm:schema-tool:update --force
 
 Insert row in table "role":
 
     INSERT INTO `role` (`id`, `parent_id`, `roleId`) VALUES (1, NULL, 'guest');
+
+Dump test data:
+
+    dump.sql
