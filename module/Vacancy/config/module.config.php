@@ -58,5 +58,4 @@ return array(
         'ZfcTwigViewStrategy',
     ),
 
-
 );

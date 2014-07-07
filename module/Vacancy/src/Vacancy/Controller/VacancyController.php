@@ -2,17 +2,47 @@
 
 namespace Vacancy\Controller;
 
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Stdlib\DispatchableInterface as Dispatchable;
+use Zend\Stdlib\RequestInterface as Request;
+use Zend\Stdlib\ResponseInterface as Response;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Vacancy\Entity;
 use Zend\Mail;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Class VacancyController
  * @package Vacancy\Controller
  */
 class VacancyController extends AbstractActionController
+    implements Dispatchable, ServiceLocatorAwareInterface
 {
+
+    protected $services;
+
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->services = $serviceLocator;
+    }
+
+    public function getServiceLocator()
+    {
+        return $this->services;
+    }
+
+    public function dispatch(Request $request, Response $response = null)
+    {
+        // ...
+
+        // Retrieve something from the service manager
+        $router = $this->getServiceLocator()->get('Router');
+
+        // ...
+    }
+
     /**
      * Page with vacancies and filters
      *
